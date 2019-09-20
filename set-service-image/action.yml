@@ -1,0 +1,37 @@
+name: set-service-image
+description: |
+  Change the Docker image associated with an existing
+  Cloud Run service
+inputs:
+  project:
+    description: Google Cloud project ID
+    required: true
+  location:
+    description: Google Cloud location
+    required: true
+  service:
+    description: Cloud Run service name
+    required: true
+  image:
+    description: Docker image name
+    required: true
+  key:
+    description: Service account JSON key
+    required: true
+runs:
+  using: docker
+  image: docker://actionsgcp/actions:latest
+  args:
+    - set-service-image
+    - --project
+    - ${{ inputs.project  }}
+    - --location
+    - ${{ inputs.location }}
+    - --service
+    - ${{ inputs.service  }}
+    - ${{ inputs.image    }}
+  env:
+    SERVICE_ACCOUNT_KEY: ${{ inputs.key }}
+branding:
+  color: blue
+  icon: box
